@@ -79,6 +79,9 @@ def create_app(config_name):
 
     # 注册首页的蓝图对象
     app.register_blueprint(index_bp)
+    # 注册、登录模块蓝图
+    from  info.moduls.passport import passport_bp
+    app.register_blueprint(passport_bp)
 
     # 返回不同模式下的app对象
     return app
