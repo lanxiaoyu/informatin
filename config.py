@@ -34,7 +34,7 @@ class DevelopmentConfig(Config):
    DEBUG = True
 
 #    开发模式的日志级别：DEBUG
-    LOG_LELEL= logging.DEBUG
+   LOG_LEVEL = logging.DEBUG
 
 class ProductionConfig(Config):
     """生产环境的项目配置"""

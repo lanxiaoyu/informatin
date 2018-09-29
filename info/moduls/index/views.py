@@ -3,18 +3,20 @@ from flask import current_app
 from . import index_bp
 from info import redis_store
 from info.models import User
+from flask import render_template
 
 # 2、使用蓝图
 @index_bp.route('/')
 def hello_world():
-    # 使用redis对象存储kv数据
-    redis_store.set('name','durant')
-    logging.debug('我是debug级别日志')
-    logging.info('我是info级别日志')
-    logging.warning('我是warning级别日志')
-    logging.error('我是error级别日志')
-    logging.critical('我是critical级别日志')
+    print(current_app.url_map)
+    return render_template('news/index.html')
 
-    # flask 中对logging模块进行封装，直接用current_app调用（常见）
-    current_app.logger.debug("flask 中记录的debug日志")
-    return 'hello 777'
+@index_bp.route('/')
+def favicon():
+    """返回网页的图标"""
+    """
+    Function used internally to send static files from the static
++        folder to the browser
+这个方法是被内部用来发送静态文件到浏览器的
+    """
+    return current_app.send_static_file('news/favicon.ico')
