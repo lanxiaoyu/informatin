@@ -1,4 +1,5 @@
 from redis import StrictRedis
+import logging
 
 class Config(object):
    """项目配置信息"""
@@ -30,7 +31,18 @@ class Config(object):
 
 class DevelopmentConfig(Config):
    """开发环境的项目配置"""
-   DEBUG = False
+   DEBUG = True
+
+#    开发模式的日志级别：DEBUG
+    LOG_LELEL= logging.DEBUG
+
+class ProductionConfig(Config):
+    """生产环境的项目配置"""
+    DEBUG = False
+
+#     线上模式的日志级别：WANRNING
+    LOG_LEVEL = logging.WARNING
+
 
 # 给外界暴露一个使用配置类的接口
 # 使用方法: config_dict['development'] --->DevelopmentConfig 开发环境的配置类
