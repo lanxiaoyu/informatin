@@ -2,6 +2,7 @@ import logging
 from flask import current_app
 from . import index_bp
 from info import redis_store
+from info.models import User
 
 # 2、使用蓝图
 @index_bp.route('/')
