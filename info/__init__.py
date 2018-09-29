@@ -6,7 +6,6 @@ from flask_session import Session
 from config import config_dict
 import logging
 from logging.handlers import  RotatingFileHandler
-from info.models.index import index_bp
 
 
 # 暂时没有app对象，就不会去初始化，只是声明一下
@@ -75,6 +74,8 @@ def create_app(config_name):
     Session(app)
 
    # 6、注册蓝图
+   # 真正用到蓝图对象的时候才导入，延迟导入（只有函数被调用才会来导入），解决循环导入的问题
+   from  info.models.index import index_bp
    # 注册首页的蓝图对象
    app.register_buleprint(index_bp)
 
