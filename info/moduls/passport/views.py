@@ -5,7 +5,7 @@ from info.utils.captcha.captcha import captcha
 from info import redis_store,constants
 
 # 127.0.0.1:5000/passport/image_code?code_id=uuid编码
-@passport_bp.route('/')
+@passport_bp.route('/image_code')
 def get_image_code():
     """获取验证码图片的后端接口   （GET）"""
     """
@@ -33,10 +33,11 @@ def get_image_code():
     # 3.2以code_id作为key将生成验证码图片的真实值（文字）
     try:
         redis_store.setex('imageCodeId_%s'% code_id,constants.IMAGE_CODE_REDIS_EXPIRES,real_image_code)
+    except Exception as (e):
         current_app.logger.error(e)
         abort(500)
 
-    #  4.1返回验证码图片(二进制图片数据，不能兼容所有浏览器）
+    """ 4.1返回验证码图片(二进制图片数据，不能兼容所有浏览器）"""
     # 创建响应对象
     response=make_response(image_data)
     # 设置响应数据的内容类型 Content-Type:'image/JPEG‘
