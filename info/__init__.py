@@ -58,8 +58,9 @@ def create_app(config_name):
     # 懒加载思想，延迟加载
     db.init_app(app)
     # 3、创建redis数据库对象(懒加载思想）
+    # decode_response=True  能够二进制数据decode成字符串返回
     global redis_store
-    redis_store = StrictRedis(host=configClass.REDIS_HOST, port=configClass.REDIS_POST, db=configClass.REDIS_NUM)
+    redis_store = StrictRedis(host=configClass.REDIS_HOST, port=configClass.REDIS_POST, db=configClass.REDIS_NUM,decode_responses=True)
 
     """
     # 4、开启csrf保护机制
@@ -68,7 +69,7 @@ def create_app(config_name):
     3、自己校验这两个值
 
     """
-    csrf = CSRFProtect(app)
+    # csrf = CSRFProtect(app)
 
     # 5、创建Session对象，将session的存储方法进行调整（flask后端内存--->redis数据库）
     Session(app)
